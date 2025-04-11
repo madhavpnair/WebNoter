@@ -34,14 +34,13 @@ const Popup = () => {
     };
 
     return (
-        <div style={{ padding: "20px", width: "400px" }}>
+        <div className="popup_div">
             <h2>WebNoter</h2>
             <p><strong>Website:</strong> {url}</p>
-            <textarea 
-                value={note} 
+            <textarea
+                value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Write a note..."
-                style={{ width: "100%", height: "80px" }}
             />
             <button onClick={saveNote} >
                 Save Note
