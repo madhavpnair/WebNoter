@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Popup.css"
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Popup = () => {
     const [note, setNote] = useState("");
@@ -35,7 +36,11 @@ const Popup = () => {
 
     return (
         <div className="popup_div">
-            <h2>WebNoter</h2>
+            <div className="header">
+                <MenuIcon className="MenuIcon"/>
+                <h2>WebNoter</h2>
+            </div>
+            
             <p><strong>Website:</strong> {url}</p>
             <textarea
                 value={note}
