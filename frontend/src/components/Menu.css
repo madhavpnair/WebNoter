@@ -1,0 +1,55 @@
+body{
+    --sb-width: 2rem;
+    height: 100%;
+}
+
+body.sb-expanded{
+    height: 100%;
+    --sb-width: 12.5rem;
+}
+
+
+aside{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1 rem;
+    width: var(--sb-width);
+    /* width: 80 px; */
+    background-image: linear-gradient(aquamarine,#89d538,#055f59)
+}
+
+nav{
+    height: 100%;
+}
+
+nav ul{
+    list-style: none;
+    display: flex;
+    height: 100%;
+    flex-flow: column;
+    gap: 0.25rem;
+}
+
+
+nav li{
+    font-size: 1.25rem;
+    color: white;
+    transition: 
+        background-color 0.5s ease-in-out,
+        color 0.5s ease-in-out;
+}
+
+nav li span{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sb-expanded nav li span{
+    font-size: 0.68rem;
+    color: crimson;
+    font-weight: 500;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    opacity: 1;
+    visibility: visible;
+}
