@@ -34,6 +34,7 @@ useEffect(()=>{
 if(loading){
     return <div>loading...</div>
 }
+//nothing
 
 if(error){
     return <div>Error loading data:{error}</div>
