@@ -1,16 +1,17 @@
 import "./Menu.css"
-import { useState,useEffect } from "react"
+import { useState, useEffect, useRef } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
-
+import useNoteStore from "./noteStore";
 
 function Menu() {
 const [items,setItems] = useState({})
 const [loading, setLoading] = useState(true)
 const [error, setError] = useState(false)
 const [isExpanded, setIsExpanded] = useState(false)
-
+const note = useNoteStore((state) => state.note)
 
 useEffect(()=>{
+    console.log("a note is saved in Popup")
     chrome.storage.sync.get()
     .then(data => {
         setItems(data);
@@ -20,16 +21,28 @@ useEffect(()=>{
         setError(err);
         setLoading(false);
     })
+},[note])
+
+const sidebarRef = useRef<HTMLDivElement | null>(null);
+useEffect(()=>{
+    const divs = document.getElementsByTagName("div")
+    if(divs.length>0){
+        divs[0].classList.add("sb-shrink");
+    }
 },[])
 
-useEffect(()=>{
-    if(isExpanded){
-        document.body.classList.add("sb-expanded");
+useEffect(() => {
+    if (!sidebarRef.current) return;
+  
+    if (isExpanded) {
+      sidebarRef.current.classList.add("sb-expanded");
+      sidebarRef.current.classList.remove("sb-shrink");
+    } else {
+      sidebarRef.current.classList.add("sb-shrink");
+      sidebarRef.current.classList.remove("sb-expanded");
     }
-    else{
-        document.body.classList.remove("sb-expanded");
-    }
-},[isExpanded]);
+  }, [isExpanded]);
+  
 
 if(loading){
     return <div>loading...</div>
@@ -45,7 +58,7 @@ const toggleSidebar = ()=>{
 }
 
 return(
-    <>
+    <div ref={sidebarRef}>
         <aside>
         <MenuIcon onClick={toggleSidebar} data-resize-btn></MenuIcon>
             <nav>
@@ -53,7 +66,7 @@ return(
                     { Object.entries(items).map(([key,value])=>(
                         <li key={key}>
                             <span>
-                                {key} : {JSON.stringify(value)}
+                                {key} :<br></br> {JSON.stringify(value)}
                             </span>
                         </li>
                         ))
@@ -62,7 +75,7 @@ return(
             </nav>
         
         </aside>
-    </>
+    </div>
 )
 }
 

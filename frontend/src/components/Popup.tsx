@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import "./Popup.css";
 import Menu from "./Menu";
+import useNoteStore from "./noteStore"
 // import MenuIcon from '@mui/icons-material/Menu';
 
 const Popup = () => {
-    const [note, setNote] = useState("");
     const [url, setUrl] = useState("");
-
+    const note = useNoteStore((state) => state.note);
+    const setNote = useNoteStore((state) => state.setNote);
 
     useEffect(() => {
        
@@ -33,6 +34,7 @@ const Popup = () => {
         chrome.storage.sync.set({ [url]: note }, () => {
             console.log("Note saved for", url);
         });
+        setNote(note+' ');
     };
 
     return (
@@ -40,12 +42,12 @@ const Popup = () => {
             <div className="side_bar"><Menu/></div>
             <div className="popup_body">
                 <div className="header">
-                    <h2>WebNoter</h2>
+                    <h2 className="Title">WebNoter</h2>
                 </div>
-                <p><strong>Website:</strong> {url}</p>
+                <p className="websiteCard"><strong>Website:</strong> {url}</p>
                 <textarea
                     value={note}
-                    onChange={(e) => setNote(e.target.value)}
+                    onChange={(e) => {setNote(e.target.value);console.log("onChange saved!");}}
                     placeholder="Write a note..."
                 />
                 <button onClick={saveNote} >
