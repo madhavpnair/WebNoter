@@ -1,39 +1,95 @@
-.sb-expanded{
-    --sb-width : 180px;
+.sb-expanded {
+    --sb-width: 220px; /* Slightly wider for better content display */
     --sb-visibility: visible;
-    height: 500px;
-    overflow: auto;
     --sb-display: flex;
-
+    opacity: 1; /* Ensure full visibility when expanded */
+    transition: all 0.3s ease-in-out; /* Smooth transition for expansion */
 }
 
-.sb-shrink{
-    --sb-width : 40px;
-    --sb-visibility : hidden;
-    height: 500px;
-    --sb-display: none;
+.sb-shrink {
+    --sb-width: 48px; /* Slightly larger icon size */
+    --sb-visibility: hidden; /* Hide content, but keep icon visible */
+    --sb-display: none; /* Hide list items but not the entire sidebar div */
+    opacity: 0; /* Fade out content */
+    transition: all 0.3s ease-in-out; /* Smooth transition for shrinking */
 }
 
-aside{
-    width: var(--sb-width);
-    align-items: start;
+/* Base style for the sidebar container */
+div[ref="sidebarRef"] {
     display: flex;
     flex-direction: column;
-    margin-right: 3px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    height: 100%; /* Take full height of parent */
+    position: relative; /* For absolute positioning of menu icon */
+    background: rgba(255, 255, 255, 0.05); /* Very subtle transparency */
+    backdrop-filter: blur(8px); /* Less aggressive blur */
+    border-right: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    overflow-y: auto; /* Enable scrolling for long lists */
 }
 
-ul{
+aside {
+    width: var(--sb-width);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: flex-start; /* Align content to the start */
+    padding: 10px 0; /* Add some vertical padding */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Styling for the Menu Icon */
+.MuiSvgIcon-root { /* Targeting the Material-UI icon directly */
+    cursor: pointer;
+    color: #24e706; /* Green for the icon */
+    font-size: 32px !important; /* Make the icon larger */
+    margin: 10px; /* Space around the icon */
+    align-self: center; /* Center the icon when shrunk */
+    transition: color 0.2s ease-in-out;
+}
+
+.MuiSvgIcon-root:hover {
+    color: #39ff14; /* Brighter green on hover */
+}
+
+/* Navigation List */
+nav {
+    flex-grow: 1; /* Allow nav to take available space */
+    width: 100%; /* Ensure nav takes full width of aside */
+}
+
+ul {
     visibility: var(--sb-visibility);
     display: var(--sb-display);
     flex-direction: column;
-
     list-style-type: none;
-    padding-left: 0px;
+    padding: 0 10px; /* Padding for list items */
+    margin: 0; /* Remove default margin */
+    width: calc(100% - 20px); /* Adjust width for padding */
+    opacity: var(--sb-opacity, 1); /* Control opacity with a variable */
+    transition: opacity 0.3s ease-in-out;
 }
 
-li{
-    border: 1px solid black;
-    font-weight: 500;
+/* List Item Styling */
+li {
+    background-color: rgba(0, 0, 0, 0.3); /* Darker background for items */
+    border: 1px solid rgba(36, 231, 6, 0.4); /* Subtle green border */
+    border-radius: 5px; /* Slightly rounded corners */
+    margin-bottom: 8px; /* Space between items */
+    padding: 8px 12px; /* Padding inside items */
+    font-weight: 400; /* Slightly lighter font weight */
+    color: #e0e0e0; /* Lighter text color */
+    word-wrap: break-word; /* Ensure long text wraps */
+    white-space: pre-wrap; /* Preserve whitespace and breaks in content */
+    font-size: 0.9em; /* Slightly smaller font size */
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+li:hover {
+    background-color: rgba(36, 231, 6, 0.1); /* Green tint on hover */
+    border-color: #24e706; /* Solid green border on hover */
+}
+
+li span {
+    display: block; /* Ensure span takes full width */
+    line-height: 1.4; /* Improve line spacing */
 }

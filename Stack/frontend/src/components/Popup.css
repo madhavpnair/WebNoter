@@ -1,45 +1,104 @@
-body{
-    background-image: linear-gradient(#00d716,#000000);
+body {
+    background-image: linear-gradient(to bottom right, #0a0a0a, #1a1a1a); /* Darker, more gradient background */
+    font-family: 'Segoe UI', 'Roboto', sans-serif; /* Modern, readable font */
+    color: #e0e0e0; /* Light grey text for contrast */
 }
-.popup_div{
+
+.popup_div {
     display: flex;
     flex-direction: row;
-    width: 400px;
-    height: 500px;
+    width: 480px; /* Slightly wider popup for better content flow */
+    height: 550px; /* Slightly taller popup */
+    border-radius: 10px; /* Rounded corners for the whole popup */
+    overflow: hidden; /* Ensures content respects border-radius */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); /* More prominent shadow for depth */
+    background-color: #1c1c1c; /* A dark base for the popup */
 }
 
-.side_bar{
+.side_bar {
     height: 100%;
+    /* No specific styles here, as the Menu component handles its own styling */
 }
 
-
-.popup_body
-{
+.popup_body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between; /* Distribute space more evenly */
     flex-grow: 1;
+    padding: 20px; /* Add padding around the content */
+    box-sizing: border-box; /* Include padding in dimensions */
 }
 
-textarea{
-    width: 90%;
-    height: 60%;
-    background-color: black;
-    color: #24e706;
+.header {
+    text-align: center;
+    margin-bottom: 20px; /* Space below the header */
 }
 
-button{
-    width: 90%;
-    background-color: #000000;
-    color: #24e706;
-    border-radius: 5px;
-    border-width: 3px;
+.Title {
+    font-size: 2.2em; /* Larger, more prominent title */
+    color: #39ff14; /* Vibrant green for the title */
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.6); /* Subtle glow for the title */
+    margin: 0; /* Remove default margin */
 }
-button:hover{
-    width: 90%;
-    background-color: #24e706;
-    color: #000000;
-    border-radius: 5px;
-    border-width: 3px;
+
+.websiteCard {
+    background-color: #2a2a2a; /* Slightly lighter background for the card */
+    border: 1px solid rgba(57, 255, 20, 0.3); /* Green border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 15px; /* Padding inside the card */
+    margin-bottom: 20px; /* Space below the card */
+    font-size: 0.95em;
+    color: #c0c0c0; /* Slightly darker text for contrast */
+}
+
+.websiteCard strong {
+    color: #39ff14; /* Green for the "Website:" label */
+}
+
+textarea {
+    width: 100%; /* Take full width of parent with padding */
+    height: 65%; /* Give more space for the note */
+    background-color: #0d0d0d; /* Very dark background for the textarea */
+    color: #24e706; /* Bright green text */
+    border: 1px solid #1a1a1a; /* Subtle dark border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* Inner padding for text */
+    box-sizing: border-box; /* Include padding in width/height */
+    font-size: 1em;
+    resize: vertical; /* Allow only vertical resizing */
+    outline: none; /* Remove default outline on focus */
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+textarea:focus {
+    border-color: #39ff14; /* Green border on focus */
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.3), 0 0 8px rgba(57, 255, 20, 0.6); /* Outer glow on focus */
+}
+
+button {
+    width: 100%; /* Take full width */
+    padding: 12px 20px; /* More generous padding */
+    background-color: #24e706; /* Green button */
+    color: #0a0a0a; /* Dark text on green */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    margin-top: 20px; /* Space above the button */
+}
+
+button:hover {
+    background-color: #39ff14; /* Brighter green on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 4px 10px rgba(57, 255, 20, 0.4); /* Soft shadow on hover */
+}
+
+button:active {
+    background-color: #1aae05; /* Darker green when clicked */
+    transform: translateY(0); /* Return to original position */
+    box-shadow: none;
 }
