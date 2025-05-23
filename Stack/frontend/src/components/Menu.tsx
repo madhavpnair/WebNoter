@@ -10,8 +10,9 @@ function Menu() {
   const [isExpanded, setIsExpanded] = useState(false);
   const note = useNoteStore((state) => state.note);
 
+  const sidebarRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
-    console.log("a note is saved in Popup");
     chrome.storage.sync
       .get()
       .then((data) => {
@@ -19,18 +20,11 @@ function Menu() {
         setLoading(false);
       })
       .catch((err) => {
-        setError(err);
+        setError(true);
         setLoading(false);
+        console.error(err);
       });
   }, [note]);
-
-  const sidebarRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const divs = document.getElementsByTagName("div");
-    if (divs.length > 0) {
-      divs[0].classList.add("sb-shrink");
-    }
-  }, []);
 
   useEffect(() => {
     if (!sidebarRef.current) return;
@@ -44,36 +38,36 @@ function Menu() {
     }
   }, [isExpanded]);
 
-  if (loading) {
-    return <div>loading...</div>;
-  }
-  //nothing
-
-  if (error) {
-    return <div>Error loading data:{error}</div>;
-  }
-
   const toggleSidebar = () => {
     setIsExpanded((prev) => !prev);
   };
 
+  if (loading) {
+    return <div>Loading notes...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading notes.</div>;
+  }
+
   return (
-    <div ref={sidebarRef}>
-      <aside>
-        <MenuIcon onClick={toggleSidebar} data-resize-btn></MenuIcon>
-        <nav>
-          <ul>
-            {Object.entries(items).map(([key, value]) => (
-              <li key={key}>
-                <span>
-                  {key} :<br></br> {JSON.stringify(value)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </aside>
-    </div>
+    <aside ref={sidebarRef} className="sb-shrink">
+      <MenuIcon onClick={toggleSidebar} className="menu-toggle" />
+
+      <nav>
+        <ul>
+          {Object.entries(items).map(([key, value]) => (
+            <li key={key}>
+              <span>
+                {key}
+                <br />
+                {JSON.stringify(value)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
   );
 }
 
